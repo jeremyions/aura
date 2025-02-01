@@ -1,6 +1,6 @@
-# Aura AI Companion
+# Auna AI Companion
 
-Welcome to the Aura AI Companion project. This README outlines the vision, features, technical strategies, and roadmap for building an all-in-one AI companion that blends spiritual guidance with practical daily assistance.
+Welcome to the Auna AI Companion project. This README outlines the vision, features, technical strategies, and roadmap for building an all-in-one AI companion that blends spiritual guidance with practical daily assistance.
 
 ---
 
@@ -17,7 +17,7 @@ Welcome to the Aura AI Companion project. This README outlines the vision, featu
 ## 2. Key Components
 
 ### a. Domains & Purpose
-- Domain ideas: aura.ai, goastral.ai, astralhq.ai
+- Domain ideas: auna.ai, goastral.ai, astralhq.ai
 - Merging metaphysical insights with practical tasks.
 
 ### b. Product Requirements & Features
@@ -67,4 +67,4 @@ This is our starting point. As we progress, we can refine the architecture and a
 
 ## 4. Vision Recap
 
-By merging spiritual and practical elements with a user-centric design, Aura aims to be an indispensable companion for holistic growth and daily life management.
+By merging spiritual and practical elements with a user-centric design, Auna aims to be an indispensable companion for holistic growth and daily life management.
