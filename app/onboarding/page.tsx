@@ -14,7 +14,7 @@ const steps = [
   {
     id: 'welcome',
     title: 'Welcome to Auna',
-    description: 'Let's get you set up with your AI assistant.'
+    description: "Let's get you set up with your AI assistant."
   },
   {
     id: 'preferences',

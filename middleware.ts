@@ -1,13 +1,16 @@
 import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
-  // Public routes that don't require authentication
-  publicRoutes: ["/", "/sign-in", "/sign-up"],
+  publicRoutes: ["/"],
+  ignoredRoutes: ["/api/webhook"],
+  afterAuth(auth, req, evt) {
+    // Remove Clerk's default layout
+    if (req.url.includes('/chat')) {
+      return;
+    }
+  }
 });
 
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files
-    "/((?!_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };

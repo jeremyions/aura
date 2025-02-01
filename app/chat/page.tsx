@@ -353,15 +353,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #FF6B6B, #833ab4)',
+                background: 'linear-gradient(90deg, #2E1B4D, #4424A9)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-chart-line"></i>
@@ -374,15 +374,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #00C9FF, #92FE9D)',
+                background: 'linear-gradient(90deg, #4424A9, #6B4984)',
                 border: 'none',
                 borderRadius: '0.5rem',
-                color: '#1a1b1e',
+                color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-align-left"></i>
@@ -395,15 +395,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #7F00FF, #E100FF)',
+                background: 'linear-gradient(90deg, #6B4984, #8A4FFF)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-list-check"></i>
@@ -416,15 +416,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #3494E6, #EC6EAD)',
+                background: 'linear-gradient(90deg, #8A4FFF, #9B6B9D)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-microscope"></i>
@@ -437,15 +437,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #11998e, #38ef7d)',
+                background: 'linear-gradient(90deg, #9B6B9D, #B784FF)',
                 border: 'none',
                 borderRadius: '0.5rem',
-                color: '#1a1b1e',
+                color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-code"></i>
@@ -458,15 +458,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #FF8008, #FFC837)',
+                background: 'linear-gradient(90deg, #B784FF, #FF7E5F)',
                 border: 'none',
                 borderRadius: '0.5rem',
-                color: '#1a1b1e',
+                color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-lightbulb"></i>
@@ -479,15 +479,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #4776E6, #8E54E9)',
+                background: 'linear-gradient(90deg, #FF7E5F, #FF9D7D)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-chalkboard-teacher"></i>
@@ -500,15 +500,15 @@ export default function Chat() {
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1rem',
-                background: 'linear-gradient(135deg, #00B4DB, #0083B0)',
+                background: 'linear-gradient(90deg, #FF9D7D, #FF7E5F)',
                 border: 'none',
                 borderRadius: '0.5rem',
                 color: '#FFFFFF',
                 cursor: 'pointer',
                 fontSize: '0.875rem',
                 whiteSpace: 'nowrap',
-                transition: 'opacity 0.2s ease',
-                ':hover': { opacity: 0.9 }
+                transition: 'all 0.3s ease',
+                ':hover': { transform: 'translateY(-2px)', opacity: 0.95 }
               }}
             >
               <i className="fas fa-code-compare"></i>
