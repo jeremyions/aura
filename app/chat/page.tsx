@@ -2,7 +2,7 @@
 
 import Head from 'next/head';
 import { useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { useUser, UserButton } from '@clerk/nextjs';
 
 export default function Chat() {
   const { user } = useUser();
@@ -45,27 +45,38 @@ export default function Chat() {
 
   const chats = {
     today: [
-      { id: 1, name: 'Femboy Fitness Ad', icon: 'fa-dumbbell' },
-      { id: 2, name: 'AI Reinforcement Learning', icon: 'fa-robot' },
-      { id: 3, name: 'Protein and Hair Health', icon: 'fa-flask' }
+      { id: 1, name: 'Understanding Contract Law', icon: 'fa-scale-balanced' },
+      { id: 2, name: 'Legal Precedents Research', icon: 'fa-gavel' },
+      { id: 3, name: 'Case Study Analysis', icon: 'fa-file-lines' },
+      { id: 4, name: 'Court Procedure Review', icon: 'fa-landmark' },
+      { id: 5, name: 'Legal Ethics Discussion', icon: 'fa-balance-scale' }
     ],
     yesterday: [
-      { id: 4, name: 'AI News Sources', icon: 'fa-newspaper' },
-      { id: 5, name: 'Social Media Ad Concepts', icon: 'fa-hashtag' },
-      { id: 6, name: 'M2E Sparse Activation', icon: 'fa-network-wired' }
+      { id: 6, name: 'Workout Plan Creation', icon: 'fa-dumbbell' },
+      { id: 7, name: 'Nutrition Analysis', icon: 'fa-apple-whole' },
+      { id: 8, name: 'Training Schedule', icon: 'fa-calendar-check' },
+      { id: 9, name: 'Progress Tracking', icon: 'fa-chart-line' },
+      { id: 10, name: 'Recovery Strategies', icon: 'fa-bed' },
+      { id: 11, name: 'Supplement Review', icon: 'fa-pills' }
     ],
     previous: [
-      { id: 7, name: 'AI Features Plan', icon: 'fa-list-check' },
-      { id: 8, name: 'NVIDIA Revenue Breakdown', icon: 'fa-chart-line' }
+      { id: 12, name: 'AI Market Analysis', icon: 'fa-chart-pie' },
+      { id: 13, name: 'Tech Trends Review', icon: 'fa-microchip' },
+      { id: 14, name: 'Startup Evaluation', icon: 'fa-rocket' },
+      { id: 15, name: 'Investment Strategy', icon: 'fa-money-bill-trend-up' },
+      { id: 16, name: 'Competition Analysis', icon: 'fa-chess' },
+      { id: 17, name: 'Future Predictions', icon: 'fa-crystal-ball' },
+      { id: 18, name: 'Industry Report', icon: 'fa-file-chart-column' },
+      { id: 19, name: 'Market Opportunities', icon: 'fa-bullseye' },
+      { id: 20, name: 'Risk Assessment', icon: 'fa-shield-halved' },
+      { id: 21, name: 'Innovation Tracking', icon: 'fa-lightbulb' }
     ]
   };
 
   const projects = [
-    { id: 'chatgpt', name: 'ChatGPT', icon: 'fa-message' },
-    { id: 'sora', name: 'Sora', icon: 'fa-video' },
-    { id: 'photo1', name: 'Photo Realistic Image', icon: 'fa-image' },
-    { id: 'law', name: 'Australian Law', icon: 'fa-scale-balanced' },
-    { id: 'photo2', name: 'Photo Realistic Image 2', icon: 'fa-image' }
+    { id: 1, name: 'Australian Law', icon: 'fa-scale-balanced' },
+    { id: 2, name: 'Fanboy Fitness', icon: 'fa-dumbbell' },
+    { id: 3, name: 'AI News', icon: 'fa-newspaper' }
   ];
 
   if (!user) {
@@ -84,64 +95,443 @@ export default function Chat() {
       position: 'relative',
       overflow: 'hidden'
     }}>
-      {/* Side Menu */}
+      {/* Top Header */}
       <div style={{
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
-        left: isSideMenuOpen ? 0 : '-320px',
-        width: '320px',
-        height: '100%',
+        left: 0,
+        right: 0,
+        height: '60px',
         backgroundColor: '#202123',
-        transition: 'left 0.3s ease',
-        zIndex: 10,
+        borderBottom: '1px solid #4A4B50',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 1rem',
+        gap: '1rem',
+        zIndex: 30
+      }}>
+        <button
+          onClick={toggleSideMenu}
+          style={{
+            background: 'none',
+            border: '1px solid #4A4B50',
+            borderRadius: '0.375rem',
+            color: '#ECECF1',
+            padding: '0.5rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '32px',
+            height: '32px'
+          }}
+        >
+          <i className="fas fa-bars"></i>
+        </button>
+
+        <button
+          onClick={() => console.log('New chat')}
+          style={{
+            background: 'none',
+            border: '1px solid #4A4B50',
+            borderRadius: '0.375rem',
+            color: '#ECECF1',
+            padding: '0.5rem 1rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            fontSize: '0.9rem'
+          }}
+        >
+          <i className="fas fa-plus"></i>
+          New chat
+        </button>
+
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <select
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            style={{
+              background: 'none',
+              border: '1px solid #4A4B50',
+              borderRadius: '0.375rem',
+              color: '#ECECF1',
+              padding: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            {models.map(model => (
+              <option key={model.id} value={model.id} style={{ background: '#202123' }}>
+                {model.name}
+              </option>
+            ))}
+          </select>
+          
+          <div style={{ 
+            width: '32px', 
+            height: '32px',
+            borderRadius: '0.375rem',
+            overflow: 'hidden'
+          }}>
+            <UserButton afterSignOutUrl="/" />
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div style={{
+        position: 'fixed',
+        top: '60px',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#1a1b1e',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden'
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2rem',
+        overflow: 'auto'
       }}>
-        {/* Sidebar Header */}
         <div style={{
-          padding: '0.75rem 0.5rem',
+          maxWidth: '800px',
+          width: '100%',
           display: 'flex',
-          gap: '0.5rem'
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2rem'
         }}>
-          <button
-            onClick={toggleSideMenu}
-            style={{
-              background: 'none',
-              border: '1px solid #4A4B50',
-              borderRadius: '0.375rem',
-              color: '#ECECF1',
-              padding: '0.5rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '32px',
-              height: '32px'
-            }}
-          >
-            <i className="fas fa-bars"></i>
-          </button>
-          <button
-            onClick={() => console.log('New project')}
-            style={{
-              background: 'none',
-              border: '1px solid #4A4B50',
-              borderRadius: '0.375rem',
-              color: '#ECECF1',
-              padding: '0.5rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '32px',
-              height: '32px'
-            }}
-          >
-            <i className="fas fa-plus"></i>
-          </button>
-        </div>
+          <h1 style={{
+            color: '#ECECF1',
+            fontSize: window.innerWidth < 768 ? '1.75rem' : '2.5rem',
+            fontWeight: '600',
+            margin: 0,
+            textAlign: 'center'
+          }}>
+            What can I help with?
+          </h1>
+          
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            alignItems: 'center', 
+            width: '100%', 
+            maxWidth: window.innerWidth < 768 ? '100%' : '600px', 
+            backgroundColor: '#2D2D2D', 
+            borderRadius: '1rem', 
+            padding: window.innerWidth < 768 ? '0.75rem' : '0.75rem',
+            gap: '0.75rem'
+          }}>
+            {/* Input and Send Button */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              width: '100%', 
+              gap: '0.5rem',
+              borderBottom: '1px solid #4A4B50',
+              paddingBottom: '0.75rem'
+            }}>
+              <input
+                type="text"
+                placeholder="Message AURA"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                style={{ 
+                  flex: 1, 
+                  background: 'none', 
+                  border: 'none', 
+                  color: 'var(--text-light)', 
+                  fontSize: '0.9375rem',
+                  outline: 'none',
+                  padding: '0.5rem 0'
+                }}
+              />
+              <button
+                onClick={handleSend}
+                style={{ 
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: '#4f46e5',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: 'white',
+                  cursor: 'pointer'
+                }}
+              >
+                <i className="fas fa-paper-plane" style={{ fontSize: '0.875rem' }}></i>
+              </button>
+            </div>
+            
+            {/* Action Buttons */}
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'left', 
+              gap: '1.5rem',
+              width: '100%',
+              padding: '0 0.75rem'
+            }}>
+              <div 
+                onClick={() => handleOptionClick('attach')}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.4rem', 
+                  cursor: 'pointer',
+                  color: selectedOptions.includes('attach') ? '#4f46e5' : '#8e8ea0',
+                  transition: 'color 0.2s ease',
+                  padding: '0.25rem 0.25rem'
+                }}
+              >
+                <i className="fas fa-paperclip" style={{ fontSize: '0.875rem' }}></i>
+                <span style={{ fontSize: '0.875rem' }}>Attach</span>
+              </div>
+              <div 
+                onClick={() => handleOptionClick('search')}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.4rem', 
+                  cursor: 'pointer',
+                  color: selectedOptions.includes('search') ? '#4f46e5' : '#8e8ea0',
+                  transition: 'color 0.2s ease',
+                  padding: '0.25rem 0.25rem'
+                }}
+              >
+                <i className="fas fa-globe" style={{ fontSize: '0.875rem' }}></i>
+                <span style={{ fontSize: '0.875rem' }}>Search</span>
+              </div>
+              <div 
+                onClick={() => handleOptionClick('image generation')}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.4rem', 
+                  cursor: 'pointer',
+                  color: selectedOptions.includes('image generation') ? '#4f46e5' : '#8e8ea0',
+                  transition: 'color 0.2s ease',
+                  padding: '0.25rem 0.25rem'
+                }}
+              >
+                <i className="fas fa-image" style={{ fontSize: '0.875rem' }}></i>
+                <span style={{ fontSize: '0.875rem' }}>Image Gen</span>
+              </div>
+              <div 
+                onClick={() => handleOptionClick('video generation')}
+                style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.4rem', 
+                  cursor: 'pointer',
+                  color: selectedOptions.includes('video generation') ? '#4f46e5' : '#8e8ea0',
+                  transition: 'color 0.2s ease',
+                  padding: '0.25rem 0.25rem'
+                }}
+              >
+                <i className="fas fa-video" style={{ fontSize: '0.875rem' }}></i>
+                <span style={{ fontSize: '0.875rem' }}>Video Gen</span>
+              </div>
+            </div>
+          </div>
 
+          {/* Quick Action Buttons */}
+          <div style={{
+            display: 'flex',
+            gap: '0.5rem',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            marginTop: '1rem'
+          }}>
+            <button
+              onClick={() => console.log('Analyze Data')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #FF6B6B, #833ab4)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#FFFFFF',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-chart-line"></i>
+              Analyze Data
+            </button>
+            <button
+              onClick={() => console.log('Summarize Text')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #00C9FF, #92FE9D)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#1a1b1e',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-align-left"></i>
+              Summarize Text
+            </button>
+            <button
+              onClick={() => console.log('Make a Plan')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #7F00FF, #E100FF)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#FFFFFF',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-list-check"></i>
+              Make a Plan
+            </button>
+            <button
+              onClick={() => console.log('Research Topic')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #3494E6, #EC6EAD)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#FFFFFF',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-microscope"></i>
+              Research Topic
+            </button>
+            <button
+              onClick={() => console.log('Write Code')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #11998e, #38ef7d)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#1a1b1e',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-code"></i>
+              Write Code
+            </button>
+            <button
+              onClick={() => console.log('Brainstorm Ideas')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #FF8008, #FFC837)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#1a1b1e',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-lightbulb"></i>
+              Brainstorm Ideas
+            </button>
+            <button
+              onClick={() => console.log('Explain Concept')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #4776E6, #8E54E9)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#FFFFFF',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-chalkboard-teacher"></i>
+              Explain Concept
+            </button>
+            <button
+              onClick={() => console.log('Compare Options')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1rem',
+                background: 'linear-gradient(135deg, #00B4DB, #0083B0)',
+                border: 'none',
+                borderRadius: '0.5rem',
+                color: '#FFFFFF',
+                cursor: 'pointer',
+                fontSize: '0.875rem',
+                whiteSpace: 'nowrap',
+                transition: 'opacity 0.2s ease',
+                ':hover': { opacity: 0.9 }
+              }}
+            >
+              <i className="fas fa-code-compare"></i>
+              Compare Options
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Side Menu */}
+      <div style={{
+        position: 'fixed',
+        top: '60px',
+        left: isSideMenuOpen ? 0 : '-320px',
+        width: '320px',
+        height: 'calc(100vh - 60px)',
+        backgroundColor: '#202123',
+        transition: 'left 0.3s ease',
+        zIndex: 20,
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        {/* Scrollable Chat History */}
         <div style={{
           flex: 1,
           overflowY: 'auto',
@@ -150,135 +540,118 @@ export default function Chat() {
           flexDirection: 'column',
           gap: '1rem'
         }}>
-          {/* Projects Section */}
-          <div style={{ marginBottom: '1rem' }}>
-            <div style={{ 
-              padding: '0.5rem', 
-              fontSize: '0.8rem', 
-              color: '#8e8ea0',
-              fontWeight: '500',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>
-              Projects
-            </div>
-            {projects.map(project => (
-              <div key={project.id} style={{
-                padding: '0.75rem 0.5rem',
-                color: '#ECECF1',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: 'pointer',
-                borderRadius: '0.375rem',
-                fontSize: '0.9rem',
-                ':hover': {
-                  backgroundColor: '#2A2B32'
-                }
+          {/* Chat History Sections */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {/* Today's Chats */}
+            <div>
+              <div style={{ 
+                padding: '0.5rem', 
+                fontSize: '0.8rem', 
+                color: '#8e8ea0',
+                fontWeight: '500'
               }}>
-                <i className={`fas ${project.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
-                {project.name}
+                Today
               </div>
-            ))}
-          </div>
-
-          {/* Today's Chats */}
-          <div>
-            <div style={{ 
-              padding: '0.5rem', 
-              fontSize: '0.8rem', 
-              color: '#8e8ea0',
-              fontWeight: '500'
-            }}>
-              Today
+              {chats.today.map(chat => (
+                <div key={chat.id} style={{
+                  padding: '0.75rem 0.5rem',
+                  color: '#ECECF1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  cursor: 'pointer',
+                  borderRadius: '0.375rem',
+                  fontSize: '0.9rem',
+                  ':hover': {
+                    backgroundColor: '#2A2B32'
+                  }
+                }}>
+                  <i className={`fas ${chat.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
+                  {chat.name}
+                </div>
+              ))}
             </div>
-            {chats.today.map(chat => (
-              <div key={chat.id} style={{
-                padding: '0.75rem 0.5rem',
-                color: '#ECECF1',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: 'pointer',
-                borderRadius: '0.375rem',
-                fontSize: '0.9rem',
-                ':hover': {
-                  backgroundColor: '#2A2B32'
-                }
-              }}>
-                <i className={`fas ${chat.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
-                {chat.name}
-              </div>
-            ))}
-          </div>
 
-          {/* Yesterday's Chats */}
-          <div>
-            <div style={{ 
-              padding: '0.5rem', 
-              fontSize: '0.8rem', 
-              color: '#8e8ea0',
-              fontWeight: '500'
-            }}>
-              Yesterday
+            {/* Yesterday's Chats */}
+            <div>
+              <div style={{ 
+                padding: '0.5rem', 
+                fontSize: '0.8rem', 
+                color: '#8e8ea0',
+                fontWeight: '500'
+              }}>
+                Yesterday
+              </div>
+              {chats.yesterday.map(chat => (
+                <div key={chat.id} style={{
+                  padding: '0.75rem 0.5rem',
+                  color: '#ECECF1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  cursor: 'pointer',
+                  borderRadius: '0.375rem',
+                  fontSize: '0.9rem',
+                  ':hover': {
+                    backgroundColor: '#2A2B32'
+                  }
+                }}>
+                  <i className={`fas ${chat.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
+                  {chat.name}
+                </div>
+              ))}
             </div>
-            {chats.yesterday.map(chat => (
-              <div key={chat.id} style={{
-                padding: '0.75rem 0.5rem',
-                color: '#ECECF1',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: 'pointer',
-                borderRadius: '0.375rem',
-                fontSize: '0.9rem',
-                ':hover': {
-                  backgroundColor: '#2A2B32'
-                }
-              }}>
-                <i className={`fas ${chat.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
-                {chat.name}
-              </div>
-            ))}
-          </div>
 
-          {/* Previous 7 Days */}
-          <div>
-            <div style={{ 
-              padding: '0.5rem', 
-              fontSize: '0.8rem', 
-              color: '#8e8ea0',
-              fontWeight: '500'
-            }}>
-              Previous 7 Days
+            {/* Previous 7 Days */}
+            <div>
+              <div style={{ 
+                padding: '0.5rem', 
+                fontSize: '0.8rem', 
+                color: '#8e8ea0',
+                fontWeight: '500'
+              }}>
+                Previous 7 Days
+              </div>
+              {chats.previous.map(chat => (
+                <div key={chat.id} style={{
+                  padding: '0.75rem 0.5rem',
+                  color: '#ECECF1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  cursor: 'pointer',
+                  borderRadius: '0.375rem',
+                  fontSize: '0.9rem',
+                  ':hover': {
+                    backgroundColor: '#2A2B32'
+                  }
+                }}>
+                  <i className={`fas ${chat.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
+                  {chat.name}
+                </div>
+              ))}
             </div>
-            {chats.previous.map(chat => (
-              <div key={chat.id} style={{
-                padding: '0.75rem 0.5rem',
-                color: '#ECECF1',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: 'pointer',
-                borderRadius: '0.375rem',
-                fontSize: '0.9rem',
-                ':hover': {
-                  backgroundColor: '#2A2B32'
-                }
-              }}>
-                <i className={`fas ${chat.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
-                {chat.name}
-              </div>
-            ))}
           </div>
+        </div>
 
-          {/* Explore GPTs */}
-          <div style={{
-            marginTop: 'auto',
-            borderTop: '1px solid #4A4B50',
-            paddingTop: '0.5rem'
+        {/* Static Projects Section */}
+        <div style={{
+          borderTop: '1px solid #4A4B50',
+          padding: '0.75rem 0.5rem',
+          backgroundColor: '#202123'
+        }}>
+          <div style={{ 
+            padding: '0.5rem', 
+            fontSize: '0.8rem', 
+            color: '#8e8ea0',
+            fontWeight: '500',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
           }}>
-            <div style={{
+            Projects
+          </div>
+          {projects.map(project => (
+            <div key={project.id} style={{
               padding: '0.75rem 0.5rem',
               color: '#ECECF1',
               display: 'flex',
@@ -291,287 +664,43 @@ export default function Chat() {
                 backgroundColor: '#2A2B32'
               }
             }}>
-              <i className="fas fa-compass" style={{ width: '20px', textAlign: 'center' }}></i>
-              Explore GPTs
+              <i className={`fas ${project.icon}`} style={{ width: '20px', textAlign: 'center' }}></i>
+              {project.name}
             </div>
-          </div>
+          ))}
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        {/* Header */}
+        {/* Fixed Explore GPTs at bottom */}
         <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          padding: '1rem',
-          gap: '1rem',
-          borderBottom: '1px solid #2D2D2D'
+          borderTop: '1px solid #4A4B50',
+          padding: '0.75rem 0.5rem',
+          backgroundColor: '#202123'
         }}>
-          <button 
-            onClick={toggleSideMenu}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#8e8ea0',
-              cursor: 'pointer',
-              padding: '0.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <i className="fas fa-grip-lines" style={{ fontSize: '1.2rem' }}></i>
-          </button>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <button 
-              onClick={() => console.log('New chat')}
-              style={{
-                background: '#2D2D2D',
-                border: 'none',
-                color: '#8e8ea0',
-                cursor: 'pointer',
-                padding: '0.5rem 1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem',
-                borderRadius: '0.5rem',
-                fontSize: '0.9rem'
-              }}
-            >
-              <i className="fas fa-plus" style={{ fontSize: '0.9rem' }}></i>
-              <span>New Chat</span>
-            </button>
-
-            <select
-              value={selectedModel}
-              onChange={(e) => setSelectedModel(e.target.value)}
-              style={{
-                backgroundColor: '#2D2D2D',
-                color: 'white',
-                border: 'none',
-                padding: '0.5rem 1rem',
-                borderRadius: '0.5rem',
-                cursor: 'pointer',
-                fontSize: '0.9rem'
-              }}
-            >
-              {models.map(model => (
-                <option key={model.id} value={model.id}>
-                  {model.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div style={{ flex: 1 }}></div>
-        </div>
-
-        {/* Main Content Area */}
-        <div style={{ 
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '1.5rem',
-          gap: '1.5rem'
-        }}>
-          <Head>
-            <title>Auna - Your Human Ascension Companion</title>
-            <link
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-              rel="stylesheet"
-            />
-          </Head>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            height: 'calc(100vh - 100px)', 
-            flexDirection: 'column', 
-            textAlign: 'center', 
-            backgroundColor: '#1a1b1e',
-            gap: '1.5rem',
-            marginTop: '-100px'
-          }}>
-            <h1 style={{ 
-              color: 'var(--text-light)', 
-              fontSize: '2.5rem',
-              fontWeight: '600',
-              margin: 0,
-              position: 'relative',
-              zIndex: 1
-            }}>
-              What can I help with?
-            </h1>
-            
-            <div style={{ 
-              display: 'flex', 
-              flexDirection: 'column',
-              alignItems: 'center', 
-              width: '100%', 
-              maxWidth: '600px', 
-              backgroundColor: '#2D2D2D', 
-              borderRadius: '1.5rem', 
-              padding: '0.75rem',
-              gap: '0.75rem'
-            }}>
-              <div style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                width: '100%', 
-                gap: '0.5rem',
-                borderBottom: '1px solid #4A4B50',
-                paddingBottom: '0.75rem'
-              }}>
-                <input
-                  type="text"
-                  placeholder="Message Auna"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  style={{ 
-                    flex: 1, 
-                    background: 'none', 
-                    border: 'none', 
-                    color: 'var(--text-light)', 
-                    fontSize: '1.1rem', 
-                    outline: 'none',
-                    padding: '0.5rem 0'
-                  }}
-                />
-                <button
-                  onClick={handleSend}
-                  style={{ 
-                    width: '32px',
-                    height: '32px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: '#4f46e5',
-                    border: 'none',
-                    borderRadius: '8px',
-                    color: 'white',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <i className="fas fa-paper-plane" style={{ fontSize: '0.9rem' }}></i>
-                </button>
-              </div>
-              
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                gap: '1.5rem', 
-                alignItems: 'center',
-                width: '100%',
-                padding: '0.25rem 0'
-              }}>
-                <div 
-                  onClick={() => handleOptionClick('attach')}
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '0.4rem', 
-                    cursor: 'pointer',
-                    color: selectedOptions.includes('attach') ? '#4f46e5' : '#8e8ea0',
-                    transition: 'color 0.2s ease'
-                  }}
-                >
-                  <i className="fas fa-paperclip" style={{ fontSize: '1.1rem' }}></i>
-                  <span style={{ fontSize: '0.9rem' }}>Attach</span>
-                </div>
-                <div 
-                  onClick={() => handleOptionClick('search')}
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '0.4rem', 
-                    cursor: 'pointer',
-                    color: selectedOptions.includes('search') ? '#4f46e5' : '#8e8ea0',
-                    transition: 'color 0.2s ease'
-                  }}
-                >
-                  <i className="fas fa-globe" style={{ fontSize: '1.1rem' }}></i>
-                  <span style={{ fontSize: '0.9rem' }}>Search</span>
-                </div>
-                <div 
-                  onClick={() => handleOptionClick('image generation')}
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '0.4rem', 
-                    cursor: 'pointer',
-                    color: selectedOptions.includes('image generation') ? '#d97706' : '#8e8ea0',
-                    transition: 'color 0.2s ease'
-                  }}
-                >
-                  <i className="fas fa-image" style={{ fontSize: '1.1rem' }}></i>
-                  <span style={{ fontSize: '0.9rem' }}>Image Gen</span>
-                </div>
-                <div 
-                  onClick={() => handleOptionClick('video generation')}
-                  style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    gap: '0.4rem', 
-                    cursor: 'pointer',
-                    color: selectedOptions.includes('video generation') ? '#dc2626' : '#8e8ea0',
-                    transition: 'color 0.2s ease'
-                  }}
-                >
-                  <i className="fas fa-video" style={{ fontSize: '1.1rem' }}></i>
-                  <span style={{ fontSize: '0.9rem' }}>Video Gen</span>
-                </div>
-              </div>
-            </div>
-
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              gap: '0.75rem', 
-              flexWrap: 'nowrap', 
-              maxWidth: '600px',
-              width: '100%',
-              marginBottom: '0.5rem'
-            }}>
-              {options.map((option, index) => (
-                <span 
-                  key={index}
-                  onClick={() => handleOptionClick(option.text.toLowerCase())}
-                  style={{ 
-                    cursor: 'pointer', 
-                    padding: '0.75rem 1rem', 
-                    backgroundColor: selectedOptions.includes(option.text.toLowerCase()) ? option.hoverColor : option.color,
-                    borderRadius: '0.75rem',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    transition: 'all 0.2s ease',
-                    fontSize: '0.9rem',
-                    fontWeight: '500',
-                    flex: '1',
-                    justifyContent: 'center',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  <i className={`fas ${option.icon}`}></i>
-                  {option.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <style jsx>{`
-            :root {
-              --star-x: 50%;
-              --star-y: 50%;
+          <div style={{
+            color: '#ECECF1',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            cursor: 'pointer',
+            borderRadius: '0.375rem',
+            fontSize: '0.9rem',
+            padding: '0.5rem',
+            ':hover': {
+              backgroundColor: '#2A2B32'
             }
-          `}</style>
+          }}>
+            <i className="fas fa-compass" style={{ width: '20px', textAlign: 'center' }}></i>
+            Explore GPTs
+          </div>
         </div>
       </div>
+
+      <style jsx>{`
+        :root {
+          --star-x: 50%;
+          --star-y: 50%;
+        }
+      `}</style>
     </div>
   );
 }
