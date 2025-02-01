@@ -1,0 +1,14 @@
+{
+  "name": "aura",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000"
+  },
+  "dependencies": {
+    "next": "12.3.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
