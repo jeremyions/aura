@@ -5,7 +5,7 @@ export default function Home() {
   const [message, setMessage] = useState('');
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('aura-alpha-1');
+  const [selectedModel, setSelectedModel] = useState('alpha-1');
 
   const handleSend = () => {
     if (message.trim() !== '') {
@@ -27,21 +27,16 @@ export default function Home() {
   };
 
   const models = [
-    { id: 'aura-alpha-1', name: 'Aura Alpha-1' },
-    { id: 'aura-omega-1', name: 'Aura Omega-1' }
+    { id: 'alpha-1', name: 'α-1' },
+    { id: 'omega-1', name: 'Ω-1' }
   ];
 
   const options = [
     { icon: 'fa-code', text: 'Code', color: '#4f46e5', hoverColor: '#4338ca' },
     { icon: 'fa-chart-bar', text: 'Analyze Data', color: '#059669', hoverColor: '#047857' },
     { icon: 'fa-file-alt', text: 'Summarize Text', color: '#db2777', hoverColor: '#be185d' },
+    { icon: 'fa-lightbulb', text: 'Make a Plan', color: '#3b82f6', hoverColor: '#2563eb' },
     { icon: 'fa-ellipsis-h', text: 'More', color: '#9333ea', hoverColor: '#7e22ce' }
-  ];
-
-  const extraOptions = [
-    { icon: 'fa-image', text: 'Image Generation', color: '#f59e0b', hoverColor: '#d97706' },
-    { icon: 'fa-video', text: 'Video Generation', color: '#ef4444', hoverColor: '#dc2626' },
-    { icon: 'fa-lightbulb', text: 'Make a Plan', color: '#3b82f6', hoverColor: '#2563eb' }
   ];
 
   const chats = {
@@ -56,7 +51,7 @@ export default function Home() {
       { id: 6, name: 'M2E Sparse Activation', icon: 'fa-network-wired' }
     ],
     previous: [
-      { id: 7, name: 'Aura AI Features Plan', icon: 'fa-list-check' },
+      { id: 7, name: 'AI Features Plan', icon: 'fa-list-check' },
       { id: 8, name: 'NVIDIA Revenue Breakdown', icon: 'fa-chart-line' }
     ]
   };
@@ -314,48 +309,52 @@ export default function Home() {
               justifyContent: 'center'
             }}
           >
-            <i className="fas fa-bars" style={{ fontSize: '1.2rem' }}></i>
+            <i className="fas fa-grip-lines" style={{ fontSize: '1.2rem' }}></i>
           </button>
 
-          <button 
-            onClick={() => console.log('New chat')}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: '#8e8ea0',
-              cursor: 'pointer',
-              padding: '0.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem'
-            }}
-          >
-            <i className="fas fa-plus" style={{ fontSize: '1.2rem' }}></i>
-            <span>New Chat</span>
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <button 
+              onClick={() => console.log('New chat')}
+              style={{
+                background: '#2D2D2D',
+                border: 'none',
+                color: '#8e8ea0',
+                cursor: 'pointer',
+                padding: '0.5rem 1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                borderRadius: '0.5rem',
+                fontSize: '0.9rem'
+              }}
+            >
+              <i className="fas fa-plus" style={{ fontSize: '0.9rem' }}></i>
+              <span>New Chat</span>
+            </button>
+
+            <select
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+              style={{
+                backgroundColor: '#2D2D2D',
+                color: 'white',
+                border: 'none',
+                padding: '0.5rem 1rem',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                fontSize: '0.9rem'
+              }}
+            >
+              {models.map(model => (
+                <option key={model.id} value={model.id}>
+                  {model.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div style={{ flex: 1 }}></div>
-
-          <select
-            value={selectedModel}
-            onChange={(e) => setSelectedModel(e.target.value)}
-            style={{
-              backgroundColor: '#2D2D2D',
-              color: 'white',
-              border: 'none',
-              padding: '0.5rem 1rem',
-              borderRadius: '0.5rem',
-              cursor: 'pointer',
-              fontSize: '0.9rem'
-            }}
-          >
-            {models.map(model => (
-              <option key={model.id} value={model.id}>
-                {model.name}
-              </option>
-            ))}
-          </select>
         </div>
 
         {/* Main Content Area */}
@@ -378,24 +377,13 @@ export default function Home() {
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center', 
-            height: '100vh', 
+            height: 'calc(100vh - 100px)', 
             flexDirection: 'column', 
             textAlign: 'center', 
             backgroundColor: '#1a1b1e',
-            gap: '1.5rem'
+            gap: '1.5rem',
+            marginTop: '-100px'
           }}>
-            <div className="galaxy-container">
-              <div className="galaxy">
-                <div className="stars"></div>
-                <div className="spiral-arm arm1"></div>
-                <div className="spiral-arm arm2"></div>
-                <div className="spiral-arm arm3"></div>
-                <div className="spiral-arm arm4"></div>
-                <div className="core"></div>
-                <div className="cosmic-dust"></div>
-              </div>
-            </div>
-            
             <h1 style={{ 
               color: 'var(--text-light)', 
               fontSize: '2.5rem',
@@ -409,19 +397,26 @@ export default function Home() {
             
             <div style={{ 
               display: 'flex', 
-              flexDirection: 'column', 
+              flexDirection: 'column',
               alignItems: 'center', 
               width: '100%', 
               maxWidth: '600px', 
               backgroundColor: '#2D2D2D', 
               borderRadius: '1.5rem', 
               padding: '0.75rem',
-              gap: '0.25rem'
+              gap: '0.75rem'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', width: '100%', gap: '0.5rem' }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                width: '100%', 
+                gap: '0.5rem',
+                borderBottom: '1px solid #4A4B50',
+                paddingBottom: '0.75rem'
+              }}>
                 <input
                   type="text"
-                  placeholder="Message ChatGPT"
+                  placeholder="Message AURA"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   style={{ 
@@ -459,7 +454,7 @@ export default function Home() {
                 gap: '1.5rem', 
                 alignItems: 'center',
                 width: '100%',
-                marginBottom: '0.25rem'
+                padding: '0.25rem 0'
               }}>
                 <div 
                   onClick={() => handleOptionClick('attach')}
@@ -556,203 +551,9 @@ export default function Home() {
               ))}
             </div>
 
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              gap: '0.75rem', 
-              flexWrap: 'nowrap', 
-              maxWidth: '600px',
-              width: '100%'
-            }}>
-              {extraOptions.map((option, index) => (
-                <span
-                  key={index}
-                  onClick={() => handleOptionClick(option.text.toLowerCase())}
-                  style={{
-                    cursor: 'pointer',
-                    padding: '0.75rem 1rem',
-                    backgroundColor: selectedOptions.includes(option.text.toLowerCase()) ? option.hoverColor : option.color,
-                    borderRadius: '0.75rem',
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    transition: 'all 0.2s ease',
-                    fontSize: '0.9rem',
-                    fontWeight: '500',
-                    flex: '1',
-                    justifyContent: 'center',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  <i className={`fas ${option.icon}`}></i>
-                  {option.text}
-                </span>
-              ))}
-            </div>
           </div>
 
           <style jsx>{`
-            .galaxy-container {
-              position: relative;
-              width: 300px;
-              height: 300px;
-              margin-bottom: 2rem;
-              perspective: 1000px;
-            }
-
-            .galaxy {
-              position: relative;
-              width: 100%;
-              height: 100%;
-              transform-style: preserve-3d;
-              animation: galaxy-rotate 20s linear infinite;
-            }
-
-            .core {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 60px;
-              height: 60px;
-              border-radius: 50%;
-              background: radial-gradient(
-                circle at center,
-                rgba(255, 255, 255, 0.8) 0%,
-                rgba(147, 51, 234, 0.6) 30%,
-                rgba(79, 70, 229, 0.4) 60%,
-                transparent 100%
-              );
-              transform: translate(-50%, -50%);
-              box-shadow: 0 0 40px rgba(147, 51, 234, 0.6);
-              z-index: 2;
-            }
-
-            .stars {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background-image: radial-gradient(2px 2px at var(--star-x) var(--star-y), 
-                rgba(255, 255, 255, 0.5), transparent);
-              background-size: 200px 200px;
-              animation: twinkle 3s ease-in-out infinite alternate;
-            }
-
-            .spiral-arm {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 200px;
-              height: 200px;
-              border-radius: 50%;
-              border: 2px solid transparent;
-              transform-origin: center;
-              z-index: 1;
-            }
-
-            .arm1 {
-              background: conic-gradient(
-                from 0deg,
-                transparent 0%,
-                rgba(147, 51, 234, 0.2) 20%,
-                rgba(79, 70, 229, 0.4) 40%,
-                rgba(147, 51, 234, 0.2) 60%,
-                transparent 80%
-              );
-              animation: spiral-rotate 12s linear infinite;
-            }
-
-            .arm2 {
-              background: conic-gradient(
-                from 90deg,
-                transparent 0%,
-                rgba(147, 51, 234, 0.2) 20%,
-                rgba(79, 70, 229, 0.4) 40%,
-                rgba(147, 51, 234, 0.2) 60%,
-                transparent 80%
-              );
-              animation: spiral-rotate 12s linear infinite reverse;
-            }
-
-            .arm3 {
-              background: conic-gradient(
-                from 180deg,
-                transparent 0%,
-                rgba(147, 51, 234, 0.2) 20%,
-                rgba(79, 70, 229, 0.4) 40%,
-                rgba(147, 51, 234, 0.2) 60%,
-                transparent 80%
-              );
-              animation: spiral-rotate 12s linear infinite;
-            }
-
-            .arm4 {
-              background: conic-gradient(
-                from 270deg,
-                transparent 0%,
-                rgba(147, 51, 234, 0.2) 20%,
-                rgba(79, 70, 229, 0.4) 40%,
-                rgba(147, 51, 234, 0.2) 60%,
-                transparent 80%
-              );
-              animation: spiral-rotate 12s linear infinite reverse;
-            }
-
-            .cosmic-dust {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: radial-gradient(
-                circle at center,
-                transparent 30%,
-                rgba(147, 51, 234, 0.1) 50%,
-                rgba(79, 70, 229, 0.2) 70%,
-                transparent 100%
-              );
-              filter: blur(8px);
-              animation: dust-rotate 15s linear infinite;
-            }
-
-            @keyframes galaxy-rotate {
-              from {
-                transform: rotateX(60deg) rotateZ(0);
-              }
-              to {
-                transform: rotateX(60deg) rotateZ(360deg);
-              }
-            }
-
-            @keyframes spiral-rotate {
-              from {
-                transform: translate(-50%, -50%) rotate(0deg) scale(0.8);
-              }
-              to {
-                transform: translate(-50%, -50%) rotate(360deg) scale(1);
-              }
-            }
-
-            @keyframes dust-rotate {
-              from {
-                transform: rotate(0deg);
-              }
-              to {
-                transform: rotate(-360deg);
-              }
-            }
-
-            @keyframes twinkle {
-              from {
-                opacity: 0.4;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-
             :root {
               --star-x: 50%;
               --star-y: 50%;
